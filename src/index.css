@@ -21,3 +21,10 @@ body {
   background-color: #000000;
   border-color: #3b3b3b;
 }
+
+.screen-max-width {
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+  position: relative;
+  max-width: 1120px;
+}
