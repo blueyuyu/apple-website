@@ -52,3 +52,9 @@ export default tseslint.config({
   },
 })
 ```
+
+RUNNING THE LINTER
+
+npm install;
+
+npm run dev;

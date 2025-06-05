@@ -16,7 +16,8 @@
 
 body {
   color: #fff;
-  width: 100dvw;
+  /* width: 100dvw */
+  width: 100%;
   height: 100%;
   background-color: #000000;
   border-color: #3b3b3b;
@@ -27,4 +28,12 @@ body {
   margin-inline-end: auto;
   position: relative;
   max-width: 1120px;
+}
+@layer utilities{
+  .nav-height {
+    @apply h-[calc(100vh-60px)]
+  }
+  .hero-title{
+    @apply font-semibold text-3xl text-[#94928d]
+  }
 }

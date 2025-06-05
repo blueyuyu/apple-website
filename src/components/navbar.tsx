@@ -1,10 +1,9 @@
 import {navList} from '@/constant/index.ts';
 import {apple,bag,search} from '@/constant/images';
 
-
 const Navbar = () => {
   return (
-    <header className="w-full sm:px-10 px-5 py-5 flex items-center">
+    <header className="w-full sm:px-10 px-5 py-5 flex items-center box-border">
       <div>
        <img src={apple} alt="apple" /> 
       </div>
