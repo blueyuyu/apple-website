@@ -36,4 +36,10 @@ body {
   .hero-title{
     @apply font-semibold text-3xl text-[#94928d]
   }
+  .section-title{
+    @apply text-5xl font-medium text-center text-[#86868b]
+  }
+  .section-link{
+    @apply text-2xl font-medium text-[#2997ff] hover:underline
+  }
 }
