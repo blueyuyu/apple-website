@@ -3,18 +3,23 @@ import { hightlightsSlides } from "@/constant/index.ts";
 export const VideoScroll = () => {
   return (
     <div>
-      <div className="relative video-container h-[640px] flex overflow-x-auto">
+      <div className="flex items-center">
         {hightlightsSlides.map((item, index) => (
-          <div className="relative video-box w-[1200px] h-auto" key={index}>
-            <video
-              autoPlay
-              muted
-              width="1200px"
-              height="100%"
-              className="hight-video !w-[1200px] h-auto object-cover"
-            >
-              <source width="1200px" src={item.video} type="video/mp4" />
-            </video>
+          <div className="video-container">
+            <div className="relative video-box h-auto" key={index}>
+              <video
+                autoPlay
+                muted
+                width="100%"
+                height="100%"
+                className="hight-video h-auto object-cover"
+              >
+                <source src={item.video} type="video/mp4" />
+              </video>
+            </div>
+            <div className="box-desc">
+              <p>1112222</p>
+            </div>
           </div>
         ))}
       </div>

@@ -42,4 +42,7 @@ body {
   .section-link{
     @apply sm:text-lg md:text-2xl font-medium text-[#2997ff] hover:underline cursor-pointer
   }
+  .video-container{
+    @apply relative sm:w-[]
+  }
 }
