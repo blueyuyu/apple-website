@@ -43,6 +43,9 @@ body {
     @apply sm:text-lg md:text-2xl font-medium text-[#2997ff] hover:underline cursor-pointer
   }
   .video-container{
-    @apply relative sm:w-[]
+    @apply relative sm:w-[70vw] w-[88vw] md:h-[70vh] sm:h-[50vh] h-[35vh] overflow-y-hidden
+  }
+  .box-desc{
+    @apply absolute top-12 left-12 
   }
 }
