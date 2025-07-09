@@ -2,6 +2,7 @@ import { hightlightsSlides } from "@/constant/index.ts";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useRef, useState } from "react";
+import { play, pause, replay } from '@/constant/images.ts';
 
 export const VideoScroll = () => {
   const [video, setVideo] = useState({
@@ -61,7 +62,24 @@ export const VideoScroll = () => {
           </div>
         ))}
       </div>
-      <div className="video-dots text-white">视频容器的点点2222</div>
+      <div className="video-dots text-white flex justify-center items-center mt-10">
+        <div className="dotList bg-[#262627] flex rounded-3xl py-5 px-8 gap-4">
+          {
+            hightlightsSlides.map((item, index) =>{
+              return (
+                <div key={item.id} className="bg-[#afafaf] rounded-full w-4 h-4">454455
+                </div>
+              )
+            })
+          }
+        </div>
+        <div className="bg-[#262627] rounded-full py-4 px-4 ml-4">
+          <img
+            src={replay}
+            alt="player"
+            className="w-6 h-6 rounded-full"></img>
+        </div>
+      </div>
     </div>
   );
 };

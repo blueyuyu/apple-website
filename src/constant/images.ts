@@ -9,6 +9,7 @@ import yellowImg from '@/assets/images/yellow.jpg';
 import blueImg from '@/assets/images/blue.jpg';
 import whiteImg from '@/assets/images/white.jpg';
 import blackImg from '@/assets/images/black.jpg';
+import replay from '@/assets/images/replay.svg';
 
 
 export {
@@ -19,6 +20,7 @@ export {
     watch,
     play,
     pause,
+    replay,
     yellowImg,
     blueImg,
     whiteImg,
