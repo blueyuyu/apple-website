@@ -30,21 +30,37 @@ export const VideoScroll = () => {
   //       videoId: videoId + 1,
   //     });
   //   } else {
-  //     setVideo({
-  //       ...video,
-  //       videoId: 0,
-  //     });
+  //     // setVideo({
+  //     //   ...video,
+  //     //   videoId: 0,
+  //     // });
   //   }
   // }, 2000);
 
+  const handleVideo = (type: string,id: number) => {
+    switch (type) {
+      case "toNext":
+        setVideo({
+          ...video,
+          videoId: videoId + 1,
+        })
+        break;
+        
+    }
+
+  }
+
+
   return (
     <div>
-      <div className="flex items-center">
+      <div className="flex items-center overflow-hidden">
         {hightlightsSlides.map((item, index) => (
           <div id="slider" key={item.id}>
             <div className="video-container relative">
               <div className="w-full h-full">
-                <video autoPlay muted className="hight-video" width="100%">
+                <video autoPlay muted className="hight-video" width="100%"
+                onEnded={()=>index != 3 ? handleVideo("toNext", index)
+                :handleVideo("toFirst", index)}>
                   <source src={item.video} width="100%" type="video/mp4" />
                 </video>
               </div>
@@ -67,7 +83,7 @@ export const VideoScroll = () => {
           {
             hightlightsSlides.map((item, index) =>{
               return (
-                <div key={item.id} className="bg-[#afafaf] rounded-full w-4 h-4">454455
+                <div key={item.id} className="bg-[#afafaf] rounded-full w-4 h-4">
                 </div>
               )
             })
