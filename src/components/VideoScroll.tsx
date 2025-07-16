@@ -17,6 +17,8 @@ export const VideoScroll = () => {
   const { isEnd, isReStart, isPlaying, isPaused, videoId } = video;
 
   const videoRefs = useRef<HTMLVideoElement[] | null[]>([]);
+  const videoDotRefs = useRef<HTMLElement[] | null[]>([]);
+  const videoDotInnerRefs = useRef<HTMLElement[] | null[]>([]);
 
   useEffect(() => {
     if (loadedMetadata.length > 3) {
@@ -26,9 +28,58 @@ export const VideoScroll = () => {
       } else {
         isReStart && videoRefs.current[videoId]?.play();
       }
-    } else {
     }
   }, [videoId, loadedMetadata, isPlaying]);
+
+  useEffect(() => {
+    let currentProgress = 0;
+    // 对内部 div 使用动画
+    const dotBars = videoDotInnerRefs.current;
+    if (dotBars[videoId]) {
+      const anim = gsap.to(dotBars, {
+        onUpdate: function () {
+          const progress = Math.ceil(anim.progress() * 100);
+          currentProgress = progress;
+          gsap.to(videoDotRefs.current[videoId], {
+            width:
+              window.innerWidth < 760
+                ? "10vw"
+                : window.innerWidth < 1200
+                ? "10vw"
+                : "4vw",
+          });
+          gsap.to(dotBars[videoId], {
+            width: `${currentProgress}%`,
+            backgroundColor: "#fff",
+          });
+        },
+        // 更新之后状态不还原，进度走动不正常, 走动时间不对
+        onComplete: function () {
+          if (isPlaying) {
+            gsap.to(videoDotRefs.current[videoId], {
+              width: "12px",
+            });
+          }
+        },
+      });
+      if (videoId === 0) {
+        anim.restart();
+      }
+
+      // 动画执行顺序
+      const animUpdate = () => {
+        anim.progress(
+          videoRefs.current[videoId].currentTime /
+            hightlightsSlides[videoId].videoDuration
+        );
+      };
+      if (isPlaying) {
+        gsap.ticker.add(animUpdate);
+      } else {
+        gsap.ticker.remove(animUpdate);
+      }
+    }
+  }, [videoId]);
 
   useGSAP(() => {
     gsap.to("#slider", {
@@ -37,21 +88,6 @@ export const VideoScroll = () => {
       ease: "power2.inOut",
     });
   }, [videoId]);
-
-  // setInterval(() => {
-  //   if (videoId < 4) {
-  //     console.log("end", videoId);
-  //     setVideo({
-  //       ...video,
-  //       videoId: videoId + 1,
-  //     });
-  //   } else {
-  //     // setVideo({
-  //     //   ...video,
-  //     //   videoId: 0,
-  //     // });
-  //   }
-  // }, 2000);
 
   const handleVideo = (type: string, id?: number) => {
     switch (type) {
@@ -97,10 +133,10 @@ export const VideoScroll = () => {
 
   const handleVideoBtnClick = () => {
     if (isPlaying) {
-      videoRefs?.current[videoId].pause();
+      videoRefs?.current[videoId]?.pause();
       handleVideo("pause");
     } else {
-      videoRefs?.current[videoId].play();
+      videoRefs?.current[videoId]?.play();
       handleVideo("play");
     }
   };
@@ -149,10 +185,16 @@ export const VideoScroll = () => {
             return (
               <div
                 key={item.id}
-                className={`${
-                  index === videoId ? "bg-[#fff]" : "bg-[#afafaf]"
-                }  rounded-full w-4 h-4`}
-              ></div>
+                className={`bg-[#afafaf] rounded-full w-3 h-3 relative overflow-hidden`}
+                ref={(dotRef) => (videoDotRefs.current[index] = dotRef)}
+              >
+                <div
+                  className="absolute top-0 left-0 h-[100%] bg-[#fff]"
+                  ref={(dotInnerRef) =>
+                    (videoDotInnerRefs.current[index] = dotInnerRef)
+                  }
+                ></div>
+              </div>
             );
           })}
         </div>
