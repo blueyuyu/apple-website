@@ -22,7 +22,7 @@ export const VideoScroll = () => {
 
   useEffect(() => {
     if (loadedMetadata.length > 3) {
-      console.log("loadedMetadata", videoId, videoRefs.current[videoId]);
+      // console.log("loadedMetadata", videoId, videoRefs.current[videoId]);
       if (!isPlaying) {
         videoRefs.current[videoId]?.pause();
       } else {
@@ -58,6 +58,7 @@ export const VideoScroll = () => {
           if (isPlaying) {
             gsap.to(videoDotRefs.current[videoId], {
               width: "12px",
+              backgroundColor: "#afafaf",
             });
           }
         },
@@ -79,6 +80,17 @@ export const VideoScroll = () => {
         gsap.ticker.remove(animUpdate);
       }
     }
+  }, [videoId]);
+
+  useEffect(() => {
+    console.log(
+      "videoId",
+      videoId,
+      video,
+      videoRefs.current[videoId],
+      "videoRef",
+      videoRefs.current
+    );
   }, [videoId]);
 
   useGSAP(() => {
@@ -181,15 +193,15 @@ export const VideoScroll = () => {
       </div>
       <div className="video-dots text-white flex justify-center items-center mt-10">
         <div className="dotList bg-[#262627] flex rounded-3xl py-5 px-8 gap-4">
-          {hightlightsSlides.map((item, index) => {
+          {videoRefs.current.map((item, index) => {
             return (
               <div
-                key={item.id}
+                key={index}
                 className={`bg-[#afafaf] rounded-full w-3 h-3 relative overflow-hidden`}
                 ref={(dotRef) => (videoDotRefs.current[index] = dotRef)}
               >
                 <div
-                  className="absolute top-0 left-0 h-[100%] bg-[#fff]"
+                  className="absolute top-0 left-0 h-[100%]"
                   ref={(dotInnerRef) =>
                     (videoDotInnerRefs.current[index] = dotInnerRef)
                   }
