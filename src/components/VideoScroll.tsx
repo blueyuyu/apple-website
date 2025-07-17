@@ -20,6 +20,28 @@ export const VideoScroll = () => {
   const videoDotRefs = useRef<HTMLElement[] | null[]>([]);
   const videoDotInnerRefs = useRef<HTMLElement[] | null[]>([]);
 
+  useGSAP(() => {
+    gsap.to("#slider", {
+      transform: `translateX(${videoId * -100}%)`,
+      duration: 2,
+      ease: "power2.inOut",
+    });
+    // video animation to play the video when it is in the view
+    gsap.to("#video", {
+      scrollTrigger: {
+        trigger: "#video",
+        toggleActions: "restart none none none",
+      },
+      onComplete: () => {
+        setVideo((pre) => ({
+          ...pre,
+          startPlay: true,
+          isPlaying: true,
+        }));
+      },
+    });
+  }, [videoId]);
+
   useEffect(() => {
     if (loadedMetadata.length > 3) {
       // console.log("loadedMetadata", videoId, videoRefs.current[videoId]);
@@ -93,14 +115,6 @@ export const VideoScroll = () => {
     );
   }, [videoId]);
 
-  useGSAP(() => {
-    gsap.to("#slider", {
-      transform: `translateX(${videoId * -100}%)`,
-      duration: 2,
-      ease: "power2.inOut",
-    });
-  }, [videoId]);
-
   const handleVideo = (type: string, id?: number) => {
     switch (type) {
       case "toNext":
@@ -155,11 +169,11 @@ export const VideoScroll = () => {
 
   return (
     <div>
-      <div className="flex items-center overflow-hidden">
+      <div className="flex items-center md:gap-20 gap-4">
         {hightlightsSlides.map((item, index) => (
           <div id="slider" key={item.id}>
             <div className="video-container relative">
-              <div className="w-full h-full">
+              <div className="w-full h-full bg-[#000000] rounded-2xl overflow-hidden">
                 <video
                   autoPlay
                   muted
